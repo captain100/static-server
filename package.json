@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/captain100/static-server/issues"
   },
-  "homepage": "https://github.com/captain100/static-server#readme"
+  "homepage": "https://github.com/captain100/static-server#readme",
+  "dependencies": {
+    "path": "^0.12.7"
+  }
 }

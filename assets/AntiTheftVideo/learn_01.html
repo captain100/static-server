@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>step 1 调用摄像头</title>
+</head>
+<body>
+<video width="640" height="480" autoplay></video>
+<input type="file" accept="image/*;capture=camera">
+<script type="text/javascript">
+    var video = document.querySelector('video');
+    function hasGetUserMedia() {
+      return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia || navigator.msGetUserMedia);
+    }
+
+    if (hasGetUserMedia()) {
+
+    } else {
+      alert('getUserMedia() is not supported in your browser');
+    }
+
+    navigator.webkitGetUserMedia({video: true}, function(localMediaStream) {
+      var video = document.querySelector('video');
+      video.src = window.webkitURL.createObjectURL(localMediaStream);
+    }, error);
+
+    navigator.getMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
+    console.log(navigator.getMedia)
+    navigator.getMedia({
+        video:true,
+    }, success, error)
+
+    function success(stream) {
+        video.src = window.webkitURL.createObjectURL(stream)
+        video.play()
+    }
+    function error(err) { 
+        console.log(err)
+    }
+
+</script>
+</body>
+</html>
