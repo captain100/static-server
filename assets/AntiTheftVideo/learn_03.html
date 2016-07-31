@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>step 03 比对两个帧动画</title>
+</head>
+<body>
+    <video width="320" height="240" autoplay="autoplay"></video>
+    <canvas width="320" height="240"></canvas>
+    <canvas width="320" height="240"></canvas>
+    <script type="text/javascript">
+        var video = document.querySelector('video')
+        var canvas = document.querySelectorAll('canvas')[0]
+        var canvasForDiff = document.querySelectorAll('canvas')[1]
+        navigator.webkitGetUserMedia({
+            video: true
+        }, success, error)
+        function success(stream) {
+            video.src = window.URL.createObjectURL(stream)
+            video.play()
+        }
+        function error(err){
+            console.log('video error :' + err)
+        }
+
+        var context = canvas.getContext('2d'),
+            diffCtx = canvasForDiff.getContext('2d');
+            // 将第二个画布混合模式设为“差异”
+            diffCtx.globalCompositeOperation = 'difference';
+        var preFrame , curFrame ;
+        //捕获并保存帧内容
+        function captureAndSaveFrame() {
+            preFrame = curFrame;
+            context.drawImage(video, 0, 0, 320, 240);
+            curFrame = canvas.toDataURL();
+        }
+        // 绘制base64图像到画布上
+        function drawImg(src, ctx) {
+            ctx = ctx || diffCtx;
+            var img = new Image()
+            img.src = src
+            ctx.drawImage(img, 0, 0, 320, 240)
+        }
+
+        function renderDiff() {
+            if (!preFrame || !curFrame) return 
+            diffCtx.clearRect(0, 0, 320, 240)
+            drawImg(preFrame)
+            drawImage(curFrame)
+        }
+        function timer(delta){
+            setTimeout(function(){
+                captureAndSaveFrame()
+                renderDiff()
+                timer(delta)
+            }, delta|| 500)
+        }
+        timer(1000)
+    </script>
+</body>
+</html>
