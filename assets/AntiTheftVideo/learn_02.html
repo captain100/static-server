@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>step 2 调用摄像头</title>
+</head>
+<body>
+<video width="640" height="480" autoplay></video>
+<script type="text/javascript">
+    var video = document.querySelector('video');
+
+    function hasGetUserMedia() {
+        return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+    }
+    var getMedia = hasGetUserMedia()
+    console.log(getMedia)
+    if (getMedia) {
+        navigator.webkitGetUserMedia({video: true}, function(localMediaStream) {
+            video.src = window.webkitURL.createObjectURL(localMediaStream);
+            video.play()
+        }, error)
+
+    } else {
+        alert('getUserMedia() is not supported in your browser');
+    }
+    function error(err) { 
+        console.log(err)
+    }
+
+</script>
+</body>
+</html>

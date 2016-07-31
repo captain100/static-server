@@ -5,12 +5,10 @@
 </head>
 <body>
 <video width="640" height="480" autoplay></video>
-<input type="file" accept="image/*;capture=camera">
 <script type="text/javascript">
     var video = document.querySelector('video');
     function hasGetUserMedia() {
-      return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-                navigator.mozGetUserMedia || navigator.msGetUserMedia);
+        return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
     }
 
     if (hasGetUserMedia()) {
@@ -20,14 +18,11 @@
     }
 
     navigator.webkitGetUserMedia({video: true}, function(localMediaStream) {
-      var video = document.querySelector('video');
-      video.src = window.webkitURL.createObjectURL(localMediaStream);
+        var video = document.querySelector('video');
+        video.src = window.webkitURL.createObjectURL(localMediaStream);
     }, error);
 
-    navigator.getMedia = ( navigator.getUserMedia ||
-                       navigator.webkitGetUserMedia ||
-                       navigator.mozGetUserMedia ||
-                       navigator.msGetUserMedia);
+    navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
     console.log(navigator.getMedia)
     navigator.getMedia({
         video:true,
