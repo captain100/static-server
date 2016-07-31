@@ -36,7 +36,7 @@ var server = http.createServer(function(request, response){
                     response.writeHead(200, {
                         'Content-Type': contentType,
                         'Connection': 'keep-alive',
-                        'Transfer-Encoding': chunked
+                        'Transfer-Encoding': 'chunked'
                     });
                     response.write(file, "binary");
                     response.end();
