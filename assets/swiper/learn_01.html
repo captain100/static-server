@@ -51,11 +51,13 @@
     <div class="swiper-slide red-slide">slider2</div>
     <div class="swiper-slide green-slide">slider3</div>
   </div>
+  <div class="swiper-pagination"></div>
 </div>
     <script type="text/javascript" src="./swiper.min.js"></script>
     <script> 
     var mySwiper = new Swiper('.swiper-container', {
         direction : 'vertical',
+        pagination : '.swiper-pagination',
         autoplay: 5000,//可选选项，自动滑动
     })
 </script>
