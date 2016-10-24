@@ -44,10 +44,6 @@ var server = http.createServer(function(request, response){
             })
         }
     })
-
-
-
-
 })
 server.listen(PORT, function(){
     console.log("Server runing at port: " + PORT + ".");

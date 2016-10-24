@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>点击div涟漪效果</title>
+    <style type="text/css">
+        body {
+            background-color: #ccc;
+        }
+        .btn {
+            margin: auto;
+            width: 300px;
+            height: 80px;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-text {
+            text-align: center;
+            line-height: 80px;
+            font-size: 30px;
+        }
+        .ripple {
+            width: 10px;
+            height: 10px;
+            background: rgba(0,0,0,.25);
+            border-radius:100%;
+            /*transform: scale(0.2);*/
+            margin-top: -90px;
+            position: relative;
+        }
+        .animate {
+            animation: ripple 1s linear;
+        }
+        @keyframes ripple {
+            100% {
+                transform: scale(12);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="btn">
+        <div class="btn-text">1</div>
+        <div class="ripple"></div>
+    </div>
+
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.btn').mousedown(function(e) {
+                var ripple = $(this).find('.ripple')
+                ripple.removeClass("animate")
+                var x = parseInt(e.pageX - $(this).offset().left - (ripple.width() / 2))
+                var y = parseInt(e.pageY - $(this).offset().top - (ripple.height() / 2))
+                console.log(x,y)
+                ripple.css({
+                    top:y,
+                    left:x
+                }).addClass("animate")
+            })
+        })
+    </script>
+
+</body>
+</html>
