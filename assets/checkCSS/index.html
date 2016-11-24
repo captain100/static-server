@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        (function(){
+            alert('--------')
+            var node = document.documentElement
+            var cssType = node.style
+            var _html = ''
+            for(var key in cssType){
+                _html += '<p>' + key + '</p>'
+            }
+            console.log(Object.keys(cssType).length)
+
+            var div = document.createElement('div')
+            document.body.appendChild(div)
+            div.innerHTML = Object.keys(cssType).join(', ') + '   ' + Object.keys(cssType).length
+        })();
+    </script>
+
+</body>
+</html>
+

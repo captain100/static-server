@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>事件捕获和事件冒泡</title>
+    <style type="text/css">
+        pre {
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+
+        }
+        .btn {
+            display: block;
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 30px;
+            padding:3px 10px;
+        }
+        .btn:hover {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>事件捕获</h1>
+    <p>
+        从DOM树的顶层根节点 －> 目标元素 
+    </p>
+
+    <h1>事件冒泡</h1>
+    <p>
+        从原目标元素 －> 跟节点
+    </p>
+    <div class="three">
+        <div class="second">
+            <div style="width: 200px; height: 20px; background: #f5f5f5; border-radius: 5px;" onclick="handleEvent(this)">点击</div>
+            <div id="btn-second" class="btn">第二个点击事件</div>
+            <input type="text" name="test" id="input-id">
+        </div>
+        <pre>
+
+            var eventUtil = {
+                addHandler: function(element, eventType, handler) {
+                    if (element.addEventListener) {
+                        element.addEventListener(eventType, handler, false)
+                    } else if (element.attachEvent) {
+                        element.attachEvent('on' + eventType, handler)
+                    } else {
+                        element['on'+ eventType] = handler
+                    }
+                },
+                removeHandler: function(element, eventType, handler) {
+                    if (element.removeEventListener) {
+                        element.removeEventListener(eventType, handler, false)
+                    } else if (element.detachEvent) {
+                        element.detachEvent('on' + eventType, handler)
+                    } else {
+                        element['on' + eventType] = null
+                    }
+                }       
+            }
+
+        </pre>
+    </div>
+    <h1>事件委托</h1>
+    <ul id="myLink" >
+        <li id="goSomewhere">go somewhere</li>
+        <li id="doSomething">do something </li>
+        <li id="sayHi">say hi</li>
+    </ul>
+
+
+    <script type="text/javascript">
+        var eventUtil = {
+            addHandler: function(element, eventType, handler) {
+                if (element.addEventListener) {
+                    element.addEventListener(eventType, handler, false)
+                } else if (element.attachEvent) {
+                    element.attachEvent('on' + eventType, handler)
+                } else {
+                    element['on'+ eventType] = handler
+                }
+            },
+            removeHandler: function(element, eventType, handler) {
+                if (element.removeEventListener) {
+                    element.removeEventListener(eventType, handler, false)
+                } else if (element.detachEvent) {
+                    element.detachEvent('on' + eventType, handler)
+                } else {
+                    element['on' + eventType] = null
+                }
+            }       
+        }
+        var handleEvent = function(e){
+            console.log('11111', e)
+        }
+        var click_1 = function (event) {
+            console.log(event.type)            
+        }
+
+        var node2 = document.getElementsByClassName('second')
+        console.log(node2[0])
+        node2[0].addEventListener('click', handleEvent('second'))
+        var node3 = document.getElementById('btn-second')
+        eventUtil.addHandler(node3, 'click', click_1)
+        var node4 = document.getElementById('input-id')
+        eventUtil.addHandler(node4, 'input', click_1)
+        var myLink = document.getElementById('myLink')
+        myLink.addEventListener('click', function(event) {
+            console.log(event)
+            var target = event.target
+            switch(target.id) {
+                case 'goSomewhere':
+                    alert('goSomewhere')
+                    break;
+                case 'doSomething':
+                    alert('doSomething')
+                    break;
+                default: 
+                    alert('say hi')
+                    break;
+            }
+
+        })
+    </script>
+
+
+
+</body>
+</html>

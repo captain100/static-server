@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>照片墙</title>
+    <link type="text/css" href="style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- <div class="container">
+        <img class="pic pic1" src="img/1.jpg">
+        <img class="pic pic2" src="img/2.jpg">
+        <img class="pic pic3" src="img/3.jpg">
+        <img class="pic pic4" src="img/4.jpg">
+        <img class="pic pic5" src="img/5.jpg">
+        <img class="pic pic6" src="img/6.jpg">
+        <img class="pic pic7" src="img/7.jpg">
+        <img class="pic pic8" src="img/8.jpg">
+        <img class="pic pic9" src="img/9.jpg">
+    </div> -->
+
+
+    <img class="pic" src="img/1.jpg">
+    <img class="pic" src="img/2.jpg">
+    <img class="pic" src="img/3.jpg">
+    <img class="pic" src="img/4.jpg">
+
+    <script type="text/javascript">
+     function Shape(){
+        this.x = 2;
+        this.y = 0;
+     }
+     Shape.prototype.move = function(x, y) {
+        this.x += x
+        this.y += y
+        console.log('move', this.x, this.y)
+     }
+
+     function Rectangle(){
+        Shape.call(this)
+     }
+    Rectangle.prototype = Object.create(Shape.prototype)
+    Rectangle.prototype.constructor = Rectangle
+    var rect = new Rectangle()
+
+    rect.move(1,4)
+    </script>
+</body>
+</html>
