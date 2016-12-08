@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        公司网站首页
+    </title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Times New Roman",Georgia,Serif;
+        }
+        body {
+            height: 100%;
+            font-size: 16px;
+        }
+        nav {
+            display: block;
+            position: fixed;
+            background: rgba(0,0,0,.4);
+            height: 2.5em;
+            color: #00dfb9;
+            top: 0;
+            right: 0;
+            left: 0;
+            font-size: 1em;
+            line-height: 2.5em;
+        }
+        nav li {
+            display: inline-block;
+        }
+        nav a {
+            text-decoration: none;
+            color: #00dfb9;
+            margin: 0 20px;
+        }
+        .page {
+            display: block;
+            text-align: center;
+            padding-top: 30px;
+            
+        }
+        #tag_1 {
+            background: black;
+            /*
+            background-image: url('./images/welcome.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            */       
+        }
+        button {
+            background: #ffff;
+        }
+        .show-swiper {
+            /*width: 200px;*/
+            /*height: 150px;*/
+            overflow: hidden;
+        }
+        .swiper {
+            width: 800px;
+            height: 150px;
+            display: inline-block;
+            transition: 2s;
+            /*margin-left: -400px;*/
+        }
+        .swiper li {
+            float: left;
+
+        }
+        .swiper img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #tag_2 {
+            background: red;
+            background-image: url('./images/wp3_h800.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+
+        }
+        #tag_3 {
+            background: yellowgreen;
+            background-image: url('./images/wp4_h800.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+
+        }
+        #tag_4 {
+            background: white;
+            background-image: url('./images/wp5_h800.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+
+        }
+
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <ul>
+        <li>
+            <a href="#tag_1">首页</a> 
+        </li>
+        <li>
+            <a href="#tag_2">第二页</a>
+        </li>
+        <li>
+            <a href="#tag_3">第三页</a>
+        </li>
+        <li>
+            <a href="#tag_4">关于我们</a>
+        </li>
+    </ul>
+</nav>
+<section id="tag_1" class="page">
+    <div class="show-swiper">
+        <ul class="swiper">
+            <li>
+                <img src="./images/wp1_1.jpg">
+            </li>
+            <li>
+                <img src="./images/wp1_3.jpg">
+            </li>
+            <li>
+                <img src="./images/wp1_4.jpg">
+            </li>
+        </ul>
+    </div>
+    <button onclick="stop()" >change page</button>
+</section>
+<section id="tag_2" class="page">
+   第二页 
+</section>
+<section id="tag_3" class="page">
+   第三页 
+</section>
+<footer id="tag_4" class="page">
+    关于我们
+</footer>
+
+<script type="text/javascript">
+    var timer, _width, _height
+    function moveSwiper() {
+        var imgWidth, marginLeft;
+        var showSwiper = document.getElementsByClassName('show-swiper')
+        showSwiper[0].style.width = _width + 'px'
+        showSwiper[0].style.height = _height + 'px'
+        console.log(showSwiper[0])
+        var node = document.getElementsByClassName('swiper')
+        if (node[0].children) {
+            imgWidth = node[0].children[0].children[0].clientWidth
+        }
+        node[0].style.width = imgWidth * node[0].childElementCount + 'px'
+        marginLeft = node[0].style.marginLeft || '0px'
+        var num = parseInt(marginLeft.replace('px','').replace('-',''))
+        if (num >= imgWidth * (node[0].childElementCount - 1) ){
+            return node[0].style.marginLeft = '0px'
+        }
+        console.log(imgWidth)
+        return node[0].style.marginLeft = - (num + imgWidth)+'px'
+    }
+    function init() {
+        _width = document.documentElement.clientWidth
+        _height = document.documentElement.clientHeight
+        var pageNode = document.getElementsByClassName('page')
+        // console.log(pageNode)
+        for(var item in pageNode) {
+            if (pageNode[item].style) 
+                pageNode[item].style.height = _height+ 'px'
+        }
+        // pageNode.map(function(item){
+        //     return item.style.height = _height
+        // })
+        // console.log( _width, _height)
+        timer = setInterval(function() {
+            moveSwiper()
+        }, 5000)
+    }
+
+
+    init()
+    function stop () {
+        clearInterval(timer)
+    }
+
+
+</script>
+</body>
+</html>
